@@ -1,11 +1,14 @@
+import user
+
 class BankAccount:
     bank_name = "Hero Bank"
 
     all_accounts = []
     
-    def __init__(self, int_rate, balance = 0): 
-        self.balance = balance
-        self.int_rate = int_rate
+    def __init__(self, data, account_name = "savings"): 
+        self.balance = data["initial_deposit"]
+        self.int_rate = data["int_rate"]
+        self.account_name = account_name
         BankAccount.all_accounts.append(self)
 
     def deposit(self, amount):
@@ -15,13 +18,12 @@ class BankAccount:
     def withdraw(self, amount):
         if self.balance >= amount:
             self.balance -= amount
-            print(f"You have ${self.balance} amount left in your account")
+            print(f"You have ${self.balance} amount left in your {self.account_name} account")
         else: print("Insufficient funds")
         return self
 
     def display_account_info(self):
-        print(f"Your balance is ${self.balance}")
-        print(f"Your interest rate is {self.int_rate}")
+        print(f"Your {self.account_name} balance is ${self.balance}")
         return self
 
     def yield_interest(self):
@@ -35,24 +37,7 @@ class BankAccount:
             account.display_account_info()
 
 
-luke_data= {
-    "first_name": "Luke",
-    "last_name": "Jech",
-    "balance" : 100,
-    "int_rate" : .03
-}
-steve_data= {
-    "first_name": "Steve",
-    "last_name": "Rogers",
-    "balance" : 569645,
-    "int_rate" : .09
-}
 
-luke_account = BankAccount(luke_data["int_rate"], luke_data["balance"])
-steve_account = BankAccount(steve_data["int_rate"], steve_data["balance"])
 
-luke_account.deposit(50).deposit(500).deposit(100).withdraw(700).yield_interest().display_account_info()
 
-steve_account.deposit(693).deposit(420000).withdraw(20).withdraw(40).withdraw(60).withdraw(80).yield_interest().display_account_info()
 
-BankAccount.all_info()
